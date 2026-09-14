@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio of Alvin Kiiru — Operations Manager, Community Builder & Creative Technologist. Explore my work, insights, and professional journey.">
+  <meta name="description" content="Portfolio of Alvin Kiiru - Operations Manager, Community Builder & Creative Technologist. Explore my work, insights, and professional journey.">
   <meta name="author" content="Alvin Kiiru">
 
   <!-- Favicons -->
-<link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png" />
-<link rel="icon" type="image/svg+xml" href="images/favicons/favicon.svg" />
-<link rel="shortcut icon" href="images/favicons/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="AlvinKiiru" />
-<link rel="manifest" href="images/favicons/site.webmanifest" />
-
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="images/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="AlvinKiiru" />
+  <link rel="manifest" href="images/favicons/site.webmanifest" />
 
   <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="Alvin Kiiru — Operations, Community & Technology">
+  <meta property="og:title" content="Alvin Kiiru - Operations, Community & Technology">
   <meta property="og:description" content="Where structure meets creativity. Explore my work, highlights, and professional impact.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
   <meta property="og:type" content="website">
@@ -29,59 +28,79 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- ✅ Tailwind CDN FIRST -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- ✅ Tailwind Configuration AFTER -->
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: '#FFFFFF',
-          'accent-navy': '#0D1B2A',
-          'accent-green': '#4CAF50',
-        },
-        fontFamily: {
-          sans: ['Inter', 'sans-serif'],
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FFFFFF',
+            'accent-navy': '#0D1B2A',
+            'accent-green': '#4CAF50',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
         },
       },
-    },
-  };
-</script>
-
-
+    };
+  </script>
 
   <style>
-    /* Smooth Scroll */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Make footer stick to bottom */
-    html, body {
-      height: 100%;
-    }
-
+    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
+    main { flex: 1; }
 
-    main {
-      flex: 1; /* Push footer down */
+    /* ── NAVBAR ── */
+    #main-header {
+      color: #FFFFFF;
+      transition: background-color 0.35s ease, box-shadow 0.35s ease;
+      /* Mobile: always solid navy so the hamburger is readable over any background */
+      background-color: rgba(13, 27, 42, 0.97);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    /* Desktop: transparent over hero; .nav-scrolled adds background back on scroll */
+    @media (min-width: 768px) {
+      #main-header {
+        background-color: transparent;
+        box-shadow: none;
+      }
+      #main-header.nav-scrolled {
+        background-color: rgba(13, 27, 42, 0.97);
+        box-shadow: 0 4px 24px -4px rgba(0,0,0,0.4);
+        backdrop-filter: blur(10px);
+      }
+    }
+    /* nav links always white */
+    #main-header nav a { color: inherit; }
+
+    /* Hamburger button — clearly visible on mobile at all times */
+    #menu-btn {
+      position: relative;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background-color: rgba(76, 175, 80, 0.15);
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      color: #FFFFFF;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    #menu-btn:hover {
+      background-color: rgba(76, 175, 80, 0.3);
+      border-color: #4CAF50;
     }
 
-
-    /* Sticky Navigation */
-    .nav-scrolled {
-      background-color: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      backdrop-filter: blur(8px);
-    }
-
-    /* Fade-in Animation */
+    /* ── FADE IN ── */
     .fade-in-up {
       opacity: 0;
       transform: translateY(20px);
@@ -91,71 +110,140 @@
       opacity: 1;
       transform: translateY(0);
     }
+    .no-js .fade-in-up { opacity: 1 !important; transform: none !important; }
 
-    /* No-JS Fallback */
-    .no-js .fade-in-up {
-      opacity: 1 !important;
-      transform: none !important;
+    /* ── WHAT I DO — horizontal scroll strip ── */
+    .capabilities-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: scroll-left 72s linear infinite;
+    }
+    .capabilities-track:hover { animation-play-state: paused; }
+
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* Fixed z-index for menu button */
-    #menu-btn {
+    .capability-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.5rem 3rem;
+      border-right: 1px solid rgba(13,27,42,0.12);
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: default;
+      border-radius: 0.75rem;
+      transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background-color 0.3s ease;
       position: relative;
-      z-index: 60;
     }
 
-    /* --- Header Color Fix --- */
-
-    /* Default header over dark background (hero) */
-    #main-header {
-    color: #FFFFFF;
-    fill: #FFFFFF;
+    .capability-item:hover,
+    .capability-item:focus-within,
+    .capability-item.is-active {
+      transform: scale(1.08);
+      background-color: #0D1B2A;
+      z-index: 2;
     }
 
-    /* When scrolled: white background with dark text */
-    .nav-scrolled {
-    background-color: rgba(13, 27, 42, 0.95); /* accent-navy */
-    color: white;
-    fill: white;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    /* Number: green → white on hover */
+    .cap-number {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #4CAF50;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+      min-width: 2.5ch;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .capability-item:hover .cap-number,
+    .capability-item.is-active .cap-number {
+      color: #4CAF50;
+      text-shadow: 0 0 24px rgba(76, 175, 80, 0.7), 0 0 48px rgba(76, 175, 80, 0.3);
     }
 
-    /* Ensure menu icon always inherits current text color */
-    #menu-btn svg {
-    transition: color 0.3s ease, fill 0.3s ease;
+    .cap-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
     }
 
-    /* Slightly dim hero background when nav overlays it */
-    .hero-bg {
-    position: relative;
-    z-index: 0;
+    /* Label: navy → white on hover */
+    .cap-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0D1B2A;
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
     }
+    .capability-item:hover .cap-label,
+    .capability-item.is-active .cap-label {
+      color: #FFFFFF;
+    }
+
+    /* Sub: grey → green-tinted on hover */
+    .cap-sub {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #6B7280;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+    .capability-item:hover .cap-sub,
+    .capability-item.is-active .cap-sub {
+      color: rgba(76, 175, 80, 0.85);
+    }
+
+    /* mask fade edges */
+    .capabilities-outer {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    }
+
+    /* ── HIGHLIGHTS (from API) ── */
+    .highlight-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 0.5rem;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
   </style>
-
 </head>
+
 <body class="bg-primary font-sans text-accent-navy antialiased">
-  <header id="main-header" class="fixed top-0 left-0 right-0 z-30 text-accent-navy transition-all duration-300">
+
+  <!-- ══════════════════════════════════════════
+       HEADER / NAV
+  ══════════════════════════════════════════ -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-30 text-white transition-all duration-300">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
-        <a href="index.html" class="font-bold text-2xl">Alvin Kiiru.</a>
+        <a href="index.html" class="font-bold text-2xl text-white">Alvin Kiiru.</a>
 
-    <div class="hidden md:flex space-x-8">
-    <a href="index.html" class="font-medium text-white transition-colors hover:text-white">Home</a>
-    <a href="about.html" class="font-medium text-accent-green hover:text-white transition-colors">About</a>
-    <a href="work.html" class="font-medium text-accent-green hover:text-white transition-colors">Work</a>
-    <a href="insights.html" class="font-medium text-accent-green hover:text-white transition-colors">Insights</a>
-    <a href="gallery.html" class="font-medium text-accent-green hover:text-white transition-colors">Gallery</a>
-    <a href="clients.html" class="font-medium text-accent-green hover:text-white transition-colors">Clients</a>
-    <a href="contact.html" class="font-medium text-accent-green hover:text-white transition-colors">Contact</a>
-    </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html"    class="font-medium text-white   hover:text-accent-green transition-colors">Home</a>
+          <a href="about.html"   class="font-medium text-gray-300 hover:text-white transition-colors">About</a>
+          <a href="work.html"    class="font-medium text-gray-300 hover:text-white transition-colors">Work</a>
+          <a href="insights.html" class="font-medium text-gray-300 hover:text-white transition-colors">Insights</a>
+          <a href="gallery.html" class="font-medium text-gray-300 hover:text-white transition-colors">Gallery</a>
+          <a href="clients.html" class="font-medium text-gray-300 hover:text-white transition-colors">Clients</a>
+          <a href="contact.html" class="font-medium text-gray-300 hover:text-white transition-colors">Contact</a>
+        </div>
 
         <div class="md:hidden">
           <button id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16m-7 6h7"></path>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
           </button>
         </div>
@@ -166,9 +254,9 @@
     <div id="mobile-menu"
       class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
       <div class="flex flex-col p-8 pt-24 space-y-6">
-        <a href="index.html" class="text-xl font-medium text-accent-navy hover:text-accent-green">Home</a>
-        <a href="about.html" class="text-xl font-medium text-gray-700 hover:text-accent-green">About</a>
-        <a href="work.html" class="text-xl font-medium text-gray-700 hover:text-accent-green">Work</a>
+        <a href="index.html"    class="text-xl font-medium text-accent-navy hover:text-accent-green">Home</a>
+        <a href="about.html"   class="text-xl font-medium text-gray-700 hover:text-accent-green">About</a>
+        <a href="work.html"    class="text-xl font-medium text-gray-700 hover:text-accent-green">Work</a>
         <a href="insights.html" class="text-xl font-medium text-gray-700 hover:text-accent-green">Insights</a>
         <a href="gallery.html" class="text-xl font-medium text-gray-700 hover:text-accent-green">Gallery</a>
         <a href="clients.html" class="text-xl font-medium text-gray-700 hover:text-accent-green">Clients</a>
@@ -179,393 +267,636 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
-<section class="relative h-screen min-h-[700px] flex items-center justify-center text-center text-white px-4">
-  <div class="absolute inset-0 bg-black/80">
-    <img
-      src="images/headshot 1.png"
-      alt="Blurred background image of a creative workspace"
-      class="w-full h-full object-cover opacity-60">
-  </div>
 
-  <div class="relative z-10 fade-in-up">
-    <h1 class="text-5xl md:text-7xl font-bold">Hi, I’m Alvin Kiiru.</h1>
-    <h2 class="text-xl md:text-3xl font-light mt-4 max-w-3xl mx-auto">
-      Operations Manager, Community Builder & Creative Technologist
-    </h2>
-
-    <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-      <!-- Bright green button -->
-        <a href="work.html"
-        class="px-8 py-3 bg-accent-green text-white font-medium rounded-full text-lg shadow-lg transition-all transform hover:scale-105 hover:bg-accent-green hover:text-white">
-        View My Work
-        </a>
-
-      <!-- White button -->
-      <a href="contact.html"
-        class="px-8 py-3 bg-white text-black font-medium rounded-full text-lg shadow-lg transition-all transform hover:scale-105 hover:bg-white hover:text-black">
-        Get in Touch
-      </a>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Services Section -->
-<section class="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(76,175,80,0.05),transparent_60%)] pointer-events-none"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <h2 class="text-3xl font-bold text-accent-navy text-center mb-12">What I Do</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-      
-      <!-- Operations & Strategy -->
-      <div class="group p-10 bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 fade-in-up">
-        <div class="mx-auto mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-accent-green/10 group-hover:bg-accent-green/20 transition-colors">
-          <!-- Gear Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M10.325 4.317a1 1 0 011.35 0l.948.758a1 1 0 00.83.178l1.116-.223a1 1 0 011.05.62l.43 1.043a1 1 0 00.657.576l1.138.285a1 1 0 01.757.97v1.206a1 1 0 01-.757.97l-1.138.285a1 1 0 00-.657.576l-.43 1.043a1 1 0 01-1.05.62l-1.116-.223a1 1 0 00-.83.178l-.948.758a1 1 0 01-1.35 0l-.948-.758a1 1 0 00-.83-.178l-1.116.223a1 1 0 01-1.05-.62l-.43-1.043a1 1 0 00-.657-.576l-1.138-.285a1 1 0 01-.757-.97v-1.206a1 1 0 01.757-.97l1.138-.285a1 1 0 00.657-.576l.43-1.043a1 1 0 011.05-.62l1.116.223a1 1 0 00.83-.178l.948-.758z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <h3 class="text-2xl font-semibold text-accent-navy mb-3">Operations & Strategy</h3>
-        <p class="text-gray-600 leading-relaxed">
-          Designing and scaling efficient systems that empower teams and drive business goals.
-        </p>
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="relative h-screen min-h-[700px] flex items-center justify-center text-center text-white px-4">
+      <div class="absolute inset-0 bg-black/80">
+        <img src="images/headshot 1.png" alt="Alvin Kiiru" class="w-full h-full object-cover opacity-60">
       </div>
-
-      <!-- Community Building -->
-      <div class="group p-10 bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 fade-in-up" style="transition-delay: 200ms;">
-        <div class="mx-auto mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-accent-green/10 group-hover:bg-accent-green/20 transition-colors">
-          <!-- People Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M17 20h5v-2a3 3 0 00-5.356-1.857M9 20H4v-2a3 3 0 015.356-1.857M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75M12 14a4 4 0 100-8 4 4 0 000 8z" />
-          </svg>
-        </div>
-        <h3 class="text-2xl font-semibold text-accent-navy mb-3">Community Building</h3>
-        <p class="text-gray-600 leading-relaxed">
-          Fostering vibrant, engaged communities through authentic connection and valuable programs.
-        </p>
-      </div>
-
-      <!-- Creative Technology -->
-      <div class="group p-10 bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 fade-in-up" style="transition-delay: 400ms;">
-        <div class="mx-auto mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-accent-green/10 group-hover:bg-accent-green/20 transition-colors">
-          <!-- Spark Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 3v9m0 0v9m0-9h9m-9 0H3" />
-          </svg>
-        </div>
-        <h3 class="text-2xl font-semibold text-accent-navy mb-3">Creative Technology</h3>
-        <p class="text-gray-600 leading-relaxed">
-          Leveraging design and technology to create compelling stories and user-friendly solutions.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- Events Section -->
-<section class ="py-24 bg-white" id="events">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-accent-navy mb-4">Upcoming Events</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">
-        Here are some events I plan to attend or be part of this year. <br>Join me there, or follow along online.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <!-- Event 1 -->
-      <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-        <img src="images/websitenetworking.png"
-          alt="Event Image" class="w-full h-52 object-cover">
-        <div class="p-6">
-          <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
-            <span>📍 Nairobi, KE</span>
-            <span>Aug, 2026</span>
-          </div>
-          <h3 class="text-2xl font-semibold text-accent-navy mb-3">Metis EdTech Summit</h3>
-          <p class="text-gray-600 mb-4">
-            Exploring the intersection of innovation, education, leadership, and technology shaping Africa’s digital future.
-          </p>
-          <div class="flex space-x-3">
-            <a href="https://edtech-eastafrica.com/ecosystem/edtech-summit/" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
-            <a href="https://edtech-eastafrica.com/ecosystem/edtech-summit/" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event 2 -->
-      <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-        <img src="images/websitenetworking.png"
-          alt="Event Image" class="w-full h-52 object-cover">
-        <div class="p-6">
-          <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
-            <span>📍 Nairobi, KE</span>
-            <span>Apr, 2026</span>
-          </div>
-          <h3 class="text-2xl font-semibold text-accent-navy mb-3">PAAN Summit 2026</h3>
-          <p class="text-gray-600 mb-4">
-           The Africa Borderless Creative Economy Summit 2026 brings together the continent’s most forward-thinking agencies, brands, freelancers, marketing teams, and technology partners to reimagine how Africa’s creative industry can scale - together.
-          </p>
-          <div class="flex space-x-3">
-            <a href="https://paan.africa/summit" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
-            <a href="https://paan.africa/summit" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event 3 -->
-      <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-        <img src="images/websitenetworking.png"
-          alt="Event Image" class="w-full h-52 object-cover">
-        <div class="p-6">
-          <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
-            <span>📍 Nashville, US</span>
-            <span>Sep, 2026</span>
-          </div>
-          <h3 class="text-2xl font-semibold text-accent-navy mb-3">Operations Summit 2026</h3>
-          <p class="text-gray-600 mb-4">
-            The Executive Operations Summit focuses on the critical importance of operational leadership for the modern executive administrator and how to prove your value as a leading Executive Operations Strategist.
-          </p>
-          <div class="flex space-x-3">
-            <a href="https://www.apcevent.com/executive-operations-summit/" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
-            <a href="https://www.apcevent.com/executive-operations-summit/" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-    <!-- Highlights Section -->
-    <section class="py-24 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-center text-accent-navy mb-12">Recent Highlights</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl fade-in-up">
-            <img
-              src="images/headshot 3.jpg"
-              alt="Project highlight" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <span class="text-sm font-medium text-accent-green">Training & Development</span>
-              <h3 class="text-2xl font-semibold text-accent-navy mt-2 mb-3">InnovatED AMAL 2026</h3>
-              <p class="text-gray-600 mb-4">At Metis InnovatED AMAL, I lead teacher training and capacity-building initiatives, overseeing the design and facilitation of educator development sessions for participating teachers.</p>
-              <a href="#" class="font-medium text-accent-green hover:underline">Learn More &rarr;</a>
-            </div>
-          </div>
-
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl fade-in-up"
-            style="transition-delay: 200ms;">
-            <img
-              src="images/headshot 5.jpg"
-              alt="Project highlight" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <span class="text-sm font-medium text-accent-green">Community Management</span>
-              <h3 class="text-2xl font-semibold text-accent-navy mt-2 mb-3">Metis Alum Community</h3>
-              <p class="text-gray-600 mb-4">As the Community Manager for the Metis Alumni Network, I foster connection, learning, and collaboration among fellows by curating meaningful events, facilitating engagement, and strengthening the sense of shared purpose within the alumni community..</p>
-              <a href="#" class="font-medium text-accent-green hover:underline">See The Community &rarr;</a>
-            </div>
-          </div>
-
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl fade-in-up"
-            style="transition-delay: 400ms;">
-            <img
-              src="images/headshot 4.jpg"
-              alt="Project highlight" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <span class="text-sm font-medium text-accent-green">Operations</span>
-              <h3 class="text-2xl font-semibold text-accent-navy mt-2 mb-3">Nikola Energy SHF Pilot</h3>
-              <p class="text-gray-600 mb-4">Streamlined logistics and onboarding processes for 50 farmers participating in the Smallholder Farmer Pilot Project in Meru County Kenya.</p>
-              <a href="#" class="font-medium text-accent-green hover:underline">Learn More &rarr;</a>
-            </div>
-          </div>
+      <div class="relative z-10 fade-in-up">
+        <h1 class="text-5xl md:text-7xl font-bold">Hi, I'm Alvin Kiiru.</h1>
+        <h2 class="text-xl md:text-3xl font-light mt-4 max-w-3xl mx-auto">
+          Operations Manager, Community Builder &amp; Creative Technologist
+        </h2>
+        <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <a href="work.html"
+            class="px-8 py-3 bg-accent-green text-white font-medium rounded-full text-lg shadow-lg transition-all transform hover:scale-105">
+            View My Work
+          </a>
+          <a href="contact.html"
+            class="px-8 py-3 bg-white text-black font-medium rounded-full text-lg shadow-lg transition-all transform hover:scale-105">
+            Get in Touch
+          </a>
         </div>
       </div>
     </section>
+
+
+    <!-- ══════════════════════════════════════════
+         WHAT I DO — scrolling number strip
+    ══════════════════════════════════════════ -->
+    <section class="py-20 bg-white overflow-hidden border-y border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+        <h2 class="text-3xl font-bold text-accent-navy">What I Do</h2>
+        <p class="text-gray-500 mt-2 text-sm tracking-wide">A few of the things I bring to the table</p>
+      </div>
+
+      <div class="capabilities-outer overflow-hidden">
+        <div class="capabilities-track" id="capabilities-track">
+
+          <!-- ── SET 1 (original) ── -->
+          <div class="capability-item">
+            <span class="cap-number">01</span>
+            <div class="cap-text">
+              <span class="cap-label">Operations Strategy</span>
+              <span class="cap-sub">Systems that scale</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">02</span>
+            <div class="cap-text">
+              <span class="cap-label">Community Building</span>
+              <span class="cap-sub">Real connection, real impact</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">03</span>
+            <div class="cap-text">
+              <span class="cap-label">Creative Technology</span>
+              <span class="cap-sub">Where design meets function</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">04</span>
+            <div class="cap-text">
+              <span class="cap-label">Program Management</span>
+              <span class="cap-sub">Structured delivery</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">05</span>
+            <div class="cap-text">
+              <span class="cap-label">Stakeholder Engagement</span>
+              <span class="cap-sub">Alignment across teams</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">06</span>
+            <div class="cap-text">
+              <span class="cap-label">EdTech &amp; Learning</span>
+              <span class="cap-sub">Capacity building at scale</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">07</span>
+            <div class="cap-text">
+              <span class="cap-label">Event Production</span>
+              <span class="cap-sub">From brief to memorable</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">08</span>
+            <div class="cap-text">
+              <span class="cap-label">Data &amp; Reporting</span>
+              <span class="cap-sub">Insight-driven decisions</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">09</span>
+            <div class="cap-text">
+              <span class="cap-label">Brand Storytelling</span>
+              <span class="cap-sub">Voice that resonates</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">10</span>
+            <div class="cap-text">
+              <span class="cap-label">Digital Tools &amp; Automation</span>
+              <span class="cap-sub">Work smarter, not harder</span>
+            </div>
+          </div>
+
+          <!-- ── SET 2 (mirror duplicate for seamless loop) ── -->
+          <div class="capability-item">
+            <span class="cap-number">01</span>
+            <div class="cap-text">
+              <span class="cap-label">Operations Strategy</span>
+              <span class="cap-sub">Systems that scale</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">02</span>
+            <div class="cap-text">
+              <span class="cap-label">Community Building</span>
+              <span class="cap-sub">Real connection, real impact</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">03</span>
+            <div class="cap-text">
+              <span class="cap-label">Creative Technology</span>
+              <span class="cap-sub">Where design meets function</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">04</span>
+            <div class="cap-text">
+              <span class="cap-label">Program Management</span>
+              <span class="cap-sub">Structured delivery</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">05</span>
+            <div class="cap-text">
+              <span class="cap-label">Stakeholder Engagement</span>
+              <span class="cap-sub">Alignment across teams</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">06</span>
+            <div class="cap-text">
+              <span class="cap-label">EdTech &amp; Learning</span>
+              <span class="cap-sub">Capacity building at scale</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">07</span>
+            <div class="cap-text">
+              <span class="cap-label">Event Production</span>
+              <span class="cap-sub">From brief to memorable</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">08</span>
+            <div class="cap-text">
+              <span class="cap-label">Data &amp; Reporting</span>
+              <span class="cap-sub">Insight-driven decisions</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">09</span>
+            <div class="cap-text">
+              <span class="cap-label">Brand Storytelling</span>
+              <span class="cap-sub">Voice that resonates</span>
+            </div>
+          </div>
+          <div class="capability-item">
+            <span class="cap-number">10</span>
+            <div class="cap-text">
+              <span class="cap-label">Digital Tools &amp; Automation</span>
+              <span class="cap-sub">Work smarter, not harder</span>
+            </div>
+          </div>
+
+        </div><!-- /capabilities-track -->
+      </div><!-- /capabilities-outer -->
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         EVENTS
+    ══════════════════════════════════════════ -->
+    <section class="py-24 bg-white" id="events">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-accent-navy mb-4">Upcoming Events</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Here are some events I plan to attend or be part of this year.<br>Join me there, or follow along online.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+          <!-- Event 1 -->
+          <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <img src="images/websitenetworking.png" alt="Event Image" class="w-full h-52 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                <span>📍 Nairobi, KE</span><span>Aug, 2026</span>
+              </div>
+              <h3 class="text-2xl font-semibold text-accent-navy mb-3">Metis EdTech Summit</h3>
+              <p class="text-gray-600 mb-4">Exploring the intersection of innovation, education, leadership, and technology shaping Africa's digital future.</p>
+              <div class="flex space-x-3">
+                <a href="https://edtech-eastafrica.com/ecosystem/edtech-summit/" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
+                <a href="https://edtech-eastafrica.com/ecosystem/edtech-summit/" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <img src="images/websitenetworking.png" alt="Event Image" class="w-full h-52 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                <span>📍 Nairobi, KE</span><span>Apr, 2026</span>
+              </div>
+              <h3 class="text-2xl font-semibold text-accent-navy mb-3">PAAN Summit 2026</h3>
+              <p class="text-gray-600 mb-4">The Africa Borderless Creative Economy Summit brings together the continent's most forward-thinking agencies, brands, and technology partners to reimagine how Africa's creative industry can scale — together.</p>
+              <div class="flex space-x-3">
+                <a href="https://paan.africa/summit" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
+                <a href="https://paan.africa/summit" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="bg-gray-50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <img src="images/websitenetworking.png" alt="Event Image" class="w-full h-52 object-cover">
+            <div class="p-6">
+              <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                <span>📍 Nashville, US</span><span>Sep, 2026</span>
+              </div>
+              <h3 class="text-2xl font-semibold text-accent-navy mb-3">Operations Summit 2026</h3>
+              <p class="text-gray-600 mb-4">The Executive Operations Summit focuses on the critical importance of operational leadership for the modern executive administrator and how to prove your value as a leading Executive Operations Strategist.</p>
+              <div class="flex space-x-3">
+                <a href="https://www.apcevent.com/executive-operations-summit/" class="px-5 py-2 bg-accent-green text-white rounded-full text-sm font-medium hover:bg-green-600 transition">Follow</a>
+                <a href="https://www.apcevent.com/executive-operations-summit/" class="px-5 py-2 border border-accent-green text-accent-green rounded-full text-sm font-medium hover:bg-accent-green hover:text-white transition">Details</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         RECENT HIGHLIGHTS — rotating carousel from Insights API
+    ══════════════════════════════════════════ -->
+    <section class="py-24 bg-gray-50" id="highlights-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12 gap-4">
+          <h2 class="text-4xl font-bold text-accent-navy">Recent Highlights</h2>
+          <a href="insights.html" class="text-sm font-medium text-accent-green hover:underline self-start sm:self-auto">
+            View all posts →
+          </a>
+        </div>
+
+        <!-- Loading skeletons -->
+        <div id="highlights-skeleton" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="highlight-skeleton w-full h-48"></div>
+            <div class="p-6 space-y-3">
+              <div class="highlight-skeleton h-4 w-1/3 rounded"></div>
+              <div class="highlight-skeleton h-6 w-3/4 rounded"></div>
+              <div class="highlight-skeleton h-4 w-full rounded"></div>
+              <div class="highlight-skeleton h-4 w-5/6 rounded"></div>
+              <div class="highlight-skeleton h-4 w-1/4 rounded"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden hidden md:block">
+            <div class="highlight-skeleton w-full h-48"></div>
+            <div class="p-6 space-y-3">
+              <div class="highlight-skeleton h-4 w-1/3 rounded"></div>
+              <div class="highlight-skeleton h-6 w-3/4 rounded"></div>
+              <div class="highlight-skeleton h-4 w-full rounded"></div>
+              <div class="highlight-skeleton h-4 w-5/6 rounded"></div>
+              <div class="highlight-skeleton h-4 w-1/4 rounded"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden hidden lg:block">
+            <div class="highlight-skeleton w-full h-48"></div>
+            <div class="p-6 space-y-3">
+              <div class="highlight-skeleton h-4 w-1/3 rounded"></div>
+              <div class="highlight-skeleton h-6 w-3/4 rounded"></div>
+              <div class="highlight-skeleton h-4 w-full rounded"></div>
+              <div class="highlight-skeleton h-4 w-5/6 rounded"></div>
+              <div class="highlight-skeleton h-4 w-1/4 rounded"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rotator wrapper -->
+        <div id="highlights-rotator" class="hidden">
+          <div id="highlights-grid"
+               class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8
+                      transition-opacity duration-700 ease-in-out">
+          </div>
+          <!-- Dot indicators -->
+          <div id="highlights-dots" class="flex justify-center gap-2 mt-10"></div>
+        </div>
+
+        <!-- Error state -->
+        <div id="highlights-error" class="hidden text-center py-12">
+          <p class="text-gray-500">Could not load highlights right now.
+            <a href="insights.html" class="text-accent-green hover:underline">Browse all insights →</a>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer -->
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
   <footer class="bg-accent-navy text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
         <div>
           <a href="index.html" class="font-bold text-3xl text-white">Alvin Kiiru.</a>
-          <p class="mt-4 text-gray-400 text-sm">
-            © 2026 Kiiru.
-          </p>
+          <p class="mt-4 text-gray-400 text-sm">© 2026 Kiiru.</p>
           <div class="mt-2 flex space-x-3 text-xs">
             <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
             <span class="text-gray-600">·</span>
-            <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Use</a>
+            <a href="terms.html"   class="text-gray-400 hover:text-white transition-colors">Terms of Use</a>
           </div>
-          </p>
         </div>
 
         <div>
           <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
           <ul class="space-y-2">
-            <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
-            <li><a href="work.html" class="text-gray-300 hover:text-white transition-colors">Work</a></li>
+            <li><a href="about.html"       class="text-gray-300 hover:text-white transition-colors">About</a></li>
+            <li><a href="work.html"        class="text-gray-300 hover:text-white transition-colors">Work</a></li>
             <li><a href="index.html#events" class="text-gray-300 hover:text-white transition-colors">Events</a></li>
-            <li><a href="insights.html" class="text-gray-300 hover:text-white transition-colors">Insights</a></li>
-            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+            <li><a href="insights.html"    class="text-gray-300 hover:text-white transition-colors">Insights</a></li>
+            <li><a href="contact.html"     class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
           </ul>
         </div>
 
         <div>
-        <h5 class="text-lg font-semibold text-white mb-4">Connect</h5>
-        <div class="flex flex-wrap gap-5">
-            
+          <h5 class="text-lg font-semibold text-white mb-4">Connect</h5>
+          <div class="flex flex-wrap gap-5">
+
             <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/alvin-k-a64576111/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-            class="text-gray-300 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
+            <a href="https://www.linkedin.com/in/alvin-k-a64576111/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
             </a>
 
             <!-- Medium -->
-            <a href="https://alvinkiiru.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium"
-            class="text-gray-300 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                d="M2.01 6.5c.03-.26-.07-.52-.27-.7l-1.99-2.4v-.36h6.22l4.8 10.54 4.23-10.54h5.93v.36l-1.7 1.62c-.15.11-.22.29-.18.47v11.55c-.04.18.03.36.18.47l1.66 1.62v.36h-8.41v-.36l1.72-1.66c.17-.17.17-.22.17-.47v-9.32l-4.79 11.79h-.65l-5.56-11.79v7.9c-.05.34.07.68.31.93l2.23 2.71v.36h-6.32v-.36l2.23-2.71c.24-.25.35-.59.3-.93v-9.82z" />
-            </svg>
+            <a href="https://alvinkiiru.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2.01 6.5c.03-.26-.07-.52-.27-.7l-1.99-2.4v-.36h6.22l4.8 10.54 4.23-10.54h5.93v.36l-1.7 1.62c-.15.11-.22.29-.18.47v11.55c-.04.18.03.36.18.47l1.66 1.62v.36h-8.41v-.36l1.72-1.66c.17-.17.17-.22.17-.47v-9.32l-4.79 11.79h-.65l-5.56-11.79v7.9c-.05.34.07.68.31.93l2.23 2.71v.36h-6.32v-.36l2.23-2.71c.24-.25.35-.59.3-.93v-9.82z"/>
+              </svg>
             </a>
 
-            <!-- Instagram Account 1 -->
-            <a href="https://www.instagram.com/alvin_kiiru/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 1"
-            class="text-gray-300 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z" />
-                <path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
-            </svg>
+            <!-- Instagram 1 -->
+            <a href="https://www.instagram.com/alvin_kiiru/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z"/><path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+              </svg>
             </a>
 
-                        <!-- Instagram Account 2 -->
-            <a href="https://www.instagram.com/illframeyou/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 1"
-            class="text-gray-300 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z" />
-                <path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
-            </svg>
+            <!-- Instagram 2 -->
+            <a href="https://www.instagram.com/illframeyou/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (illframeyou)" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z"/><path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+              </svg>
             </a>
 
             <!-- GitHub -->
-            <a href="https://github.com/workmail0601" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-            class="text-gray-300 hover:text-white transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                d="M12 .5c-6.63 0-12 5.37-12 12 0 5.3 3.438 9.8 8.205 11.385.6.112.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.775.419-1.304.762-1.604-2.665-.305-5.466-1.335-5.466-5.932 0-1.31.469-2.382 1.236-3.222-.124-.304-.536-1.527.116-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.019.004 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.649.241 2.872.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.805 5.624-5.476 5.922.43.37.823 1.103.823 2.222v3.293c0 .32.216.694.825.576a12.002 12.002 0 008.202-11.383c0-6.63-5.37-12-12-12z" />
-            </svg>
+            <a href="https://github.com/workmail0601" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .5c-6.63 0-12 5.37-12 12 0 5.3 3.438 9.8 8.205 11.385.6.112.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.775.419-1.304.762-1.604-2.665-.305-5.466-1.335-5.466-5.932 0-1.31.469-2.382 1.236-3.222-.124-.304-.536-1.527.116-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.019.004 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.649.241 2.872.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.805 5.624-5.476 5.922.43.37.823 1.103.823 2.222v3.293c0 .32.216.694.825.576a12.002 12.002 0 008.202-11.383c0-6.63-5.37-12-12-12z"/>
+              </svg>
             </a>
-        </div>
+
+          </div>
         </div>
 
       </div>
     </div>
   </footer>
 
-<script>
-  const header = document.getElementById('main-header');
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuOverlay = document.getElementById('menu-overlay');
 
-  // ✅ Toggle mobile menu open/close
-  menuBtn.addEventListener('click', () => {
-    const menuIsHidden = mobileMenu.classList.contains('translate-x-full');
+  <!-- ══════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════ -->
+  <script>
+    /* ── 1. NAV: add .nav-scrolled when page is scrolled ── */
+    const header   = document.getElementById('main-header');
+    const menuBtn  = document.getElementById('menu-btn');
+    const mobileMenu  = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
 
-    if (menuIsHidden) {
-      // --- OPEN MENU ---
-      mobileMenu.classList.remove('translate-x-full');
-      menuOverlay.classList.remove('hidden');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('overflow-hidden');
-      menuBtn.classList.remove('text-white');
-      menuBtn.classList.add('text-black');
-    } else {
-      // --- CLOSE MENU ---
+    function updateNav() {
+      if (window.scrollY > 40) {
+        header.classList.add('nav-scrolled');
+      } else {
+        header.classList.remove('nav-scrolled');
+      }
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav(); // run once on load
+
+    /* ── 2. MOBILE MENU ── */
+    const closeMenu = () => {
       mobileMenu.classList.add('translate-x-full');
       menuOverlay.classList.add('hidden');
       menuBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('overflow-hidden');
-      menuBtn.classList.remove('text-black');
-      menuBtn.classList.add('text-white');
+    };
+
+    menuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('translate-x-full');
+      if (isHidden) {
+        mobileMenu.classList.remove('translate-x-full');
+        menuOverlay.classList.remove('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        closeMenu();
+      }
+    });
+
+    menuOverlay.addEventListener('click', closeMenu);
+    document.querySelectorAll('#mobile-menu a').forEach(l => l.addEventListener('click', closeMenu));
+
+    /* ── 3. HIDE NAV ON SCROLL DOWN, SHOW ON SCROLL UP ── */
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const cur = window.pageYOffset;
+      if (cur <= 0) { header.style.transform = ''; return; }
+      if (cur > lastScroll) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = '';
+      }
+      lastScroll = cur;
+    }, { passive: true });
+
+    /* ── 4. BACK-TO-TOP ── */
+    const backToTop = document.createElement('button');
+    backToTop.innerHTML = '↑';
+    backToTop.className =
+      'fixed bottom-6 right-6 bg-accent-green text-white text-xl rounded-full w-12 h-12 ' +
+      'flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110';
+    document.body.appendChild(backToTop);
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > window.innerHeight / 2) {
+        backToTop.style.opacity = '1';
+        backToTop.style.pointerEvents = 'auto';
+      } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.pointerEvents = 'none';
+      }
+    }, { passive: true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── 5. FADE-IN OBSERVER ── */
+    document.documentElement.classList.remove('no-js');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+
+    /* ── 6. CAPABILITY ITEMS — click toggles active glow state ── */
+    document.querySelectorAll('.capability-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('is-active');
+        // clear all first
+        document.querySelectorAll('.capability-item').forEach(el => el.classList.remove('is-active'));
+        if (!isActive) item.classList.add('is-active');
+      });
+    });
+
+    /* ── 7. RECENT HIGHLIGHTS — fade-rotating carousel from Insights API ── */
+    const API_URL      = 'https://script.google.com/macros/s/AKfycbxIeaDBF4MjrF7jmp-MLEULLaFyWtp9-4Bemg2DUzNhhkTlcZ61XOoJ6-CwpvLod6HbEg/exec?sheet=insights';
+    const CARDS_PER_PAGE = 3;   // how many cards visible at once
+    const ROTATE_MS      = 5000; // ms between auto-rotations
+
+    const skeletonEl  = document.getElementById('highlights-skeleton');
+    const rotatorEl   = document.getElementById('highlights-rotator');
+    const gridEl      = document.getElementById('highlights-grid');
+    const dotsEl      = document.getElementById('highlights-dots');
+    const errorEl     = document.getElementById('highlights-error');
+
+    let hlPosts       = [];
+    let hlPage        = 0;        // current page index (0-based)
+    let hlTimer       = null;
+    let hlPaused      = false;
+
+    /* ── card builder ── */
+    function buildHighlightCard(post) {
+      const img  = post.coverImage
+        || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=60';
+      const href = 'post.html?id=' + encodeURIComponent(post.id || '');
+      const featuredBadge = (post.featured === true || post.featured === 'TRUE')
+        ? '<span class="inline-block px-2 py-0.5 bg-accent-green text-white text-xs font-medium rounded-full mr-2">Featured</span>'
+        : '';
+      return `
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+          <a href="${href}">
+            <img src="${img}" alt="${post.title || ''}"
+              class="w-full h-48 object-cover"
+              onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=60'">
+          </a>
+          <div class="p-6">
+            <div class="flex items-center flex-wrap gap-1 mb-1">
+              ${featuredBadge}
+              <span class="text-sm font-medium text-accent-green">${post.category || 'Insights'}</span>
+            </div>
+            <h3 class="text-xl font-semibold text-accent-navy mt-1 mb-2 leading-snug">
+              <a href="${href}" class="hover:underline">${post.title || 'Untitled'}</a>
+            </h3>
+            <p class="text-gray-600 text-sm mb-4 line-clamp-3">${post.summary || ''}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-400">${post.date || ''}</span>
+              <a href="${href}" class="font-medium text-accent-green hover:underline text-sm">Read More →</a>
+            </div>
+          </div>
+        </div>`;
     }
-  });
 
-  // ✅ Close when clicking overlay or a link
-  const closeMenu = () => {
-    mobileMenu.classList.add('translate-x-full');
-    menuOverlay.classList.add('hidden');
-    menuBtn.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('overflow-hidden');
-    menuBtn.classList.remove('text-black');
-    menuBtn.classList.add('text-white');
-  };
-
-  menuOverlay.addEventListener('click', closeMenu);
-  document.querySelectorAll('#mobile-menu a').forEach(link =>
-    link.addEventListener('click', closeMenu)
-  );
-
-  // ✅ Hide header on scroll down, show on scroll up
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll <= 0) {
-      header.classList.remove('-translate-y-full');
-      return;
+    /* ── dot builder ── */
+    function totalPages() {
+      return Math.ceil(hlPosts.length / CARDS_PER_PAGE);
     }
 
-    if (currentScroll > lastScroll && !header.classList.contains('-translate-y-full')) {
-      // scrolling down
-      header.classList.add('-translate-y-full');
-    } else if (currentScroll < lastScroll && header.classList.contains('-translate-y-full')) {
-      // scrolling up
-      header.classList.remove('-translate-y-full');
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < totalPages(); i++) {
+        const dot = document.createElement('button');
+        dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 '
+          + (i === hlPage ? 'bg-accent-green scale-125' : 'bg-gray-300 hover:bg-gray-400');
+        dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+        dot.addEventListener('click', () => goToPage(i));
+        dotsEl.appendChild(dot);
+      }
     }
-    lastScroll = currentScroll;
-  });
 
-  // ✅ Back-to-top button behavior
-  const backToTop = document.createElement('button');
-  backToTop.innerHTML = '↑';
-  backToTop.id = 'back-to-top';
-  backToTop.className =
-    'fixed bottom-6 right-6 bg-accent-green text-white text-xl rounded-full w-12 h-12 flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110';
-  document.body.appendChild(backToTop);
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > window.innerHeight / 2) {
-      backToTop.classList.remove('opacity-0', 'pointer-events-none');
-      backToTop.classList.add('opacity-100');
-    } else {
-      backToTop.classList.add('opacity-0', 'pointer-events-none');
-      backToTop.classList.remove('opacity-100');
+    function updateDots() {
+      dotsEl.querySelectorAll('button').forEach((dot, i) => {
+        dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 '
+          + (i === hlPage ? 'bg-accent-green scale-125' : 'bg-gray-300 hover:bg-gray-400');
+      });
     }
-  });
 
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
+    /* ── render a specific page with fade transition ── */
+    function goToPage(page, instant) {
+      hlPage = ((page % totalPages()) + totalPages()) % totalPages();
+
+      if (instant) {
+        // no animation on first load
+        const slice = hlPosts.slice(hlPage * CARDS_PER_PAGE, hlPage * CARDS_PER_PAGE + CARDS_PER_PAGE);
+        gridEl.innerHTML = slice.map(buildHighlightCard).join('');
+        gridEl.style.opacity = '1';
+        updateDots();
+        return;
+      }
+
+      // fade out → swap → fade in
+      gridEl.style.opacity = '0';
+      setTimeout(() => {
+        const slice = hlPosts.slice(hlPage * CARDS_PER_PAGE, hlPage * CARDS_PER_PAGE + CARDS_PER_PAGE);
+        gridEl.innerHTML = slice.map(buildHighlightCard).join('');
+        gridEl.style.opacity = '1';
+        updateDots();
+      }, 700); // matches transition-duration-700 on the grid
+    }
+
+    /* ── auto-rotation ── */
+    function startRotation() {
+      if (hlTimer) clearInterval(hlTimer);
+      if (totalPages() <= 1) return; // nothing to rotate
+      hlTimer = setInterval(() => {
+        if (!hlPaused) goToPage(hlPage + 1);
+      }, ROTATE_MS);
+    }
+
+    /* ── pause on hover over the section ── */
+    const hlSection = document.getElementById('highlights-section');
+    hlSection.addEventListener('mouseenter', () => { hlPaused = true;  });
+    hlSection.addEventListener('mouseleave', () => { hlPaused = false; });
+
+    /* ── fetch & init ── */
+    async function loadHighlights() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        hlPosts = (data.insights || []).filter(p => p.active !== false);
+
+        skeletonEl.classList.add('hidden');
+
+        if (hlPosts.length === 0) {
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        buildDots();
+        goToPage(0, true); // show first page instantly
+        rotatorEl.classList.remove('hidden');
+        startRotation();
+
+      } catch (err) {
+        console.error('Highlights fetch failed:', err);
+        skeletonEl.classList.add('hidden');
+        errorEl.classList.remove('hidden');
+      }
+    }
+
+    loadHighlights();
+  </script>
 
 </body>
 </html>

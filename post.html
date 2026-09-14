@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Insights & Writing by Alvin Kiiru.">
+  <meta name="author" content="Alvin Kiiru">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="images/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="AlvinKiiru" />
+  <link rel="manifest" href="images/favicons/site.webmanifest" />
+
+  <!-- Open Graph (filled in dynamically once the post loads) -->
+  <meta id="og-title" property="og:title" content="Alvin Kiiru - Insights">
+  <meta id="og-description" property="og:description" content="Thoughts on operations, community, and creative technology.">
+  <meta id="og-image" property="og:image" content="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:type" content="article">
+
+  <title id="page-title">Alvin Kiiru | Insights</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FFFFFF',
+            'accent-navy': '#0D1B2A',
+            'accent-green': '#4CAF50',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    main { flex: 1; }
+
+    #main-header { color: #FFFFFF; fill: #FFFFFF; }
+    .nav-scrolled {
+      background-color: rgba(13, 27, 42, 0.95);
+      color: white; fill: white;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    #menu-btn { position: relative; z-index: 60; }
+    #menu-btn svg { transition: color 0.3s ease, fill 0.3s ease; }
+
+    .fade-in-up {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+    .no-js .fade-in-up { opacity: 1 !important; transform: none !important; }
+
+    .skeleton { animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Article body copy: comfortable measure + line-height */
+    #article-content {
+      max-width: 68ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #article-content p {
+      margin-bottom: 1.35em;
+      line-height: 1.8;
+      color: #263242;
+      font-size: 1.05rem;
+    }
+    #article-content p:last-child { margin-bottom: 0; }
+
+    /* Gallery thumbnails */
+    .gallery-thumb {
+      cursor: zoom-in;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .gallery-thumb:hover { transform: scale(1.03); opacity: 0.92; }
+
+    /* Lightbox */
+    #lightbox { transition: opacity 0.25s ease; }
+    #lightbox.hidden-lb { opacity: 0; pointer-events: none; }
+    #lightbox img { max-height: 82vh; }
+  </style>
+</head>
+<body class="bg-primary font-sans text-accent-navy antialiased">
+
+<!-- ===== HEADER ===== -->
+<header id="main-header" class="fixed top-0 left-0 right-0 z-30 bg-accent-navy text-white transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="index.html" class="font-bold text-2xl">Alvin Kiiru.</a>
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="font-medium text-accent-green hover:text-white transition-colors">Home</a>
+        <a href="about.html" class="font-medium text-accent-green hover:text-white transition-colors">About</a>
+        <a href="work.html" class="font-medium text-accent-green hover:text-white transition-colors">Work</a>
+        <a href="insights.html" class="font-medium text-white transition-colors">Insights</a>
+        <a href="gallery.html" class="font-medium text-accent-green hover:text-white transition-colors">Gallery</a>
+        <a href="clients.html" class="font-medium text-accent-green hover:text-white transition-colors">Clients</a>
+        <a href="contact.html" class="font-medium text-accent-green hover:text-white transition-colors">Contact</a>
+      </div>
+      <div class="md:hidden">
+        <button id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-accent-navy text-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex flex-col p-8 pt-24 space-y-6">
+      <a href="index.html" class="text-xl font-medium hover:text-accent-green transition-colors">Home</a>
+      <a href="about.html" class="text-xl font-medium hover:text-accent-green transition-colors">About</a>
+      <a href="work.html" class="text-xl font-medium hover:text-accent-green transition-colors">Work</a>
+      <a href="insights.html" class="text-xl font-medium hover:text-accent-green transition-colors">Insights</a>
+      <a href="gallery.html" class="text-xl font-medium hover:text-accent-green transition-colors">Gallery</a>
+      <a href="clients.html" class="text-xl font-medium hover:text-accent-green transition-colors">Clients</a>
+      <a href="contact.html" class="text-xl font-medium hover:text-accent-green transition-colors">Contact</a>
+    </div>
+  </div>
+  <div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden md:hidden"></div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="pt-28 pb-24 bg-gray-50">
+
+  <!-- Loading skeleton -->
+  <div id="loading-state" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="skeleton bg-white rounded-2xl shadow-sm h-64 mb-8"></div>
+    <div class="skeleton bg-gray-200 rounded h-6 w-1/3 mb-4"></div>
+    <div class="skeleton bg-gray-200 rounded h-10 w-2/3 mb-8"></div>
+    <div class="skeleton bg-gray-200 rounded h-4 w-full mb-3"></div>
+    <div class="skeleton bg-gray-200 rounded h-4 w-full mb-3"></div>
+    <div class="skeleton bg-gray-200 rounded h-4 w-5/6"></div>
+  </div>
+
+  <!-- Not found / error state -->
+  <div id="error-state" class="hidden max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+    <p class="text-gray-500 text-lg mb-2">We couldn't find that post.</p>
+    <p class="text-gray-400 text-sm mb-6">It may have been moved, unpublished, or the link is out of date.</p>
+    <a href="insights.html" class="inline-block font-medium text-accent-green hover:underline">&larr; Back to Insights</a>
+  </div>
+
+  <!-- Article -->
+  <article id="article" class="hidden">
+
+    <!-- Back link -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <a href="insights.html" class="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-accent-green transition-colors">
+        &larr; Back to Insights
+      </a>
+    </div>
+
+    <!-- Hero image -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+      <div class="relative rounded-2xl overflow-hidden shadow-sm h-64 sm:h-96 bg-gray-200">
+        <img id="hero-image" src="" alt="" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span id="category-pill" class="tag-pill bg-green-100 text-green-700"></span>
+        <span id="post-date" class="text-sm text-gray-400"></span>
+      </div>
+      <h1 id="post-title" class="text-3xl sm:text-4xl font-bold text-accent-navy leading-tight mb-4"></h1>
+      <p id="post-summary" class="text-gray-600 text-lg leading-relaxed"></p>
+    </div>
+
+    <!-- Full content -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
+      <div id="article-content"></div>
+
+        <div class="mt-10 pt-6 border-t border-gray-200">
+        <a href="insights.html" class="inline-flex items-center gap-2 font-medium text-accent-green hover:underline">
+            &larr; Back to Insights
+        </a>
+        </div>
+    </div>
+
+    <!-- Gallery (up to 10 images) -->
+    <div id="gallery-section" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <h2 class="text-xl font-semibold text-accent-navy mb-5">Gallery</h2>
+      <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+    </div>
+
+  </article>
+
+</main>
+
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox" class="hidden-lb fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" style="display:none;">
+  <button id="lightbox-close" aria-label="Close"
+          class="absolute top-5 right-5 text-white text-3xl leading-none hover:text-accent-green transition-colors">&times;</button>
+  <button id="lightbox-prev" aria-label="Previous image"
+          class="absolute left-3 sm:left-6 text-white text-4xl leading-none hover:text-accent-green transition-colors">&#8249;</button>
+  <img id="lightbox-image" src="" alt="" class="max-w-full rounded-lg shadow-2xl">
+  <button id="lightbox-next" aria-label="Next image"
+          class="absolute right-3 sm:right-6 text-white text-4xl leading-none hover:text-accent-green transition-colors">&#8250;</button>
+  <p id="lightbox-count" class="absolute bottom-5 text-white/70 text-sm"></p>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-accent-navy text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <a href="index.html" class="font-bold text-3xl text-white">Alvin Kiiru.</a>
+        <p class="mt-4 text-gray-400 text-sm">
+          © 2026 Kiiru.
+        </p>
+        <div class="mt-2 flex space-x-3 text-xs">
+          <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+          <span class="text-gray-600">·</span>
+          <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Use</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
+        <ul class="space-y-2">
+          <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+          <li><a href="work.html" class="text-gray-300 hover:text-white transition-colors">Work</a></li>
+          <li><a href="index.html#events" class="text-gray-300 hover:text-white transition-colors">Events</a></li>
+          <li><a href="insights.html" class="text-gray-300 hover:text-white transition-colors">Insights</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Connect</h5>
+        <div class="flex flex-wrap gap-5">
+          <a href="https://www.linkedin.com/in/alvin-k-a64576111/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://alvinkiiru.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 6.5c.03-.26-.07-.52-.27-.7l-1.99-2.4v-.36h6.22l4.8 10.54 4.23-10.54h5.93v.36l-1.7 1.62c-.15.11-.22.29-.18.47v11.55c-.04.18.03.36.18.47l1.66 1.62v.36h-8.41v-.36l1.72-1.66c.17-.17.17-.22.17-.47v-9.32l-4.79 11.79h-.65l-5.56-11.79v7.9c-.05.34.07.68.31.93l2.23 2.71v.36h-6.32v-.36l2.23-2.71c.24-.25.35-.59.3-.93v-9.82z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/alvin_kiiru/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z"/><path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
+          </a>
+          <a href="https://github.com/workmail0601" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5c-6.63 0-12 5.37-12 12 0 5.3 3.438 9.8 8.205 11.385.6.112.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.775.419-1.304.762-1.604-2.665-.305-5.466-1.335-5.466-5.932 0-1.31.469-2.382 1.236-3.222-.124-.304-.536-1.527.116-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.019.004 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.649.241 2.872.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.805 5.624-5.476 5.922.43.37.823 1.103.823 2.222v3.293c0 .32.216.694.825.576a12.002 12.002 0 008.202-11.383c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // ⚙️  CONFIG - same Apps Script Web App URL as insights.html
+  // ─────────────────────────────────────────────────────────────
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxIeaDBF4MjrF7jmp-MLEULLaFyWtp9-4Bemg2DUzNhhkTlcZ61XOoJ6-CwpvLod6HbEg/exec?sheet=insights';
+  const FALLBACK_IMAGE = 'images/headshot 3.jpg';
+  const MAX_GALLERY_IMAGES = 10;
+
+  const categoryColors = {
+    'Operations':   { bg: 'bg-blue-100',   text: 'text-blue-700'   },
+    'Community':    { bg: 'bg-purple-100', text: 'text-purple-700' },
+    'Technology':   { bg: 'bg-cyan-100',   text: 'text-cyan-700'   },
+    'Leadership':   { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+    'Personal':     { bg: 'bg-pink-100',   text: 'text-pink-700'   },
+    'Education':    { bg: 'bg-orange-100', text: 'text-orange-700' },
+    'default':      { bg: 'bg-green-100',  text: 'text-green-700'  },
+  };
+  function getTagColor(cat) {
+    return categoryColors[cat] || categoryColors['default'];
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function getPostId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id') || '';
+  }
+
+  function readCachedPosts() {
+    try {
+      const raw = sessionStorage.getItem('insights-cache');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  async function fetchAllPosts() {
+    const res = await fetch(SHEET_API_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.status !== 'ok') throw new Error(data.message || 'API returned an error');
+    return data.insights || [];
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Gallery + lightbox
+  // ─────────────────────────────────────────────────────────────
+  let galleryImages = [];
+  let lightboxIndex = 0;
+
+  function buildGallery(images, title) {
+    const section = document.getElementById('gallery-section');
+    const grid = document.getElementById('gallery-grid');
+
+    if (!images.length) {
+      section.classList.add('hidden');
+      return;
+    }
+
+    section.classList.remove('hidden');
+    grid.innerHTML = images.map((src, i) => `
+      <button type="button" class="gallery-thumb block w-full h-28 sm:h-36 rounded-lg overflow-hidden bg-gray-200" data-index="${i}">
+        <img src="${src}" alt="${escapeHtml(title)} - image ${i + 1}" class="w-full h-full object-cover">
+      </button>
+    `).join('');
+
+    grid.querySelectorAll('.gallery-thumb').forEach(btn => {
+      btn.addEventListener('click', () => openLightbox(parseInt(btn.dataset.index, 10)));
+    });
+  }
+
+  function openLightbox(index) {
+    if (!galleryImages.length) return;
+    lightboxIndex = ((index % galleryImages.length) + galleryImages.length) % galleryImages.length;
+    updateLightbox();
+    const lb = document.getElementById('lightbox');
+    lb.style.display = 'flex';
+    requestAnimationFrame(() => lb.classList.remove('hidden-lb'));
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.add('hidden-lb');
+    document.body.classList.remove('overflow-hidden');
+    setTimeout(() => { lb.style.display = 'none'; }, 250);
+  }
+
+  function updateLightbox() {
+    document.getElementById('lightbox-image').src = galleryImages[lightboxIndex];
+    document.getElementById('lightbox-count').textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+  }
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', () => openLightbox(lightboxIndex - 1));
+  document.getElementById('lightbox-next').addEventListener('click', () => openLightbox(lightboxIndex + 1));
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').style.display !== 'flex') return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') openLightbox(lightboxIndex - 1);
+    if (e.key === 'ArrowRight') openLightbox(lightboxIndex + 1);
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // Render the article
+  // ─────────────────────────────────────────────────────────────
+  function renderArticle(post) {
+    const { title, summary, date, category, coverImage, images, content, link } = post;
+    const { bg, text } = getTagColor(category);
+
+    // Combine cover + gallery images, de-duplicated, capped at 10
+    const seen = new Set();
+    galleryImages = [coverImage, ...(images || [])]
+      .filter(Boolean)
+      .filter(src => (seen.has(src) ? false : (seen.add(src), true)))
+      .slice(0, MAX_GALLERY_IMAGES);
+
+    document.getElementById('hero-image').src = coverImage || galleryImages[0] || FALLBACK_IMAGE;
+    document.getElementById('hero-image').alt = title || '';
+    document.getElementById('hero-image').onerror = function () { this.src = FALLBACK_IMAGE; };
+
+    document.getElementById('category-pill').textContent = category || 'General';
+    document.getElementById('category-pill').className = `tag-pill ${bg} ${text}`;
+    document.getElementById('post-date').textContent = date || '';
+    document.getElementById('post-title').textContent = title || '';
+    document.getElementById('post-summary').textContent = summary || '';
+
+    // Full content: blank-line-separated blocks become paragraphs
+    const contentEl = document.getElementById('article-content');
+    const paragraphs = (content || summary || '')
+      .split(/\n\s*\n/)
+      .map(p => p.trim())
+      .filter(Boolean);
+
+    contentEl.innerHTML = paragraphs.length
+      ? paragraphs.map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`).join('')
+      : `<p class="text-gray-400 italic">Full article coming soon.</p>`;
+
+
+    // Thumbnails and the lightbox share the same array/index so clicking
+    // any thumbnail opens the matching image.
+    galleryImages = galleryImages.length ? galleryImages : [FALLBACK_IMAGE];
+    buildGallery(galleryImages.length > 1 ? galleryImages : [], title);
+
+    // Open Graph / title tags
+    document.getElementById('page-title').textContent = `${title || 'Insights'} | Alvin Kiiru`;
+    document.getElementById('og-title').setAttribute('content', title || 'Alvin Kiiru - Insights');
+    document.getElementById('og-description').setAttribute('content', summary || '');
+    document.getElementById('og-image').setAttribute('content', coverImage || FALLBACK_IMAGE);
+
+    document.getElementById('loading-state').classList.add('hidden');
+    document.getElementById('article').classList.remove('hidden');
+
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('is-visible'));
+    });
+  }
+
+  function showNotFound() {
+    document.getElementById('loading-state').classList.add('hidden');
+    document.getElementById('error-state').classList.remove('hidden');
+  }
+
+  async function loadPost() {
+    const id = getPostId();
+    if (!id) { showNotFound(); return; }
+
+    // Try cached posts first for a faster paint, then always confirm
+    // against a fresh fetch so the article stays accurate.
+    const cached = readCachedPosts();
+    const cachedMatch = cached ? cached.find(p => String(p.id) === String(id)) : null;
+    if (cachedMatch) { renderArticle(cachedMatch); }
+
+    try {
+      const posts = await fetchAllPosts();
+      const post = posts.find(p => String(p.id) === String(id));
+      if (post) {
+        renderArticle(post);
+      } else if (!cachedMatch) {
+        showNotFound();
+      }
+    } catch (err) {
+      console.error('Post fetch error:', err);
+      if (!cachedMatch) showNotFound();
+    }
+  }
+
+  loadPost();
+
+  // ─────────────────────────────────────────────────────────────
+  // NAV / SCROLL / MENU (same as all other pages)
+  // ─────────────────────────────────────────────────────────────
+  const header = document.getElementById('main-header');
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+
+  menuBtn.addEventListener('click', () => {
+    const hidden = mobileMenu.classList.contains('translate-x-full');
+    if (hidden) {
+      mobileMenu.classList.remove('translate-x-full');
+      menuOverlay.classList.remove('hidden');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('overflow-hidden');
+    } else {
+      mobileMenu.classList.add('translate-x-full');
+      menuOverlay.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('overflow-hidden');
+    }
+  });
+
+  const closeMenu = () => {
+    mobileMenu.classList.add('translate-x-full');
+    menuOverlay.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
+  };
+  menuOverlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('#mobile-menu a').forEach(l => l.addEventListener('click', closeMenu));
+
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const cur = window.pageYOffset;
+    if (cur <= 0) { header.classList.remove('-translate-y-full'); return; }
+    if (cur > lastScroll) header.classList.add('-translate-y-full');
+    else header.classList.remove('-translate-y-full');
+    lastScroll = cur;
+  });
+
+  const backToTop = document.createElement('button');
+  backToTop.innerHTML = '↑';
+  backToTop.className = 'fixed bottom-6 right-6 bg-accent-green text-white text-xl rounded-full w-12 h-12 flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110';
+  document.body.appendChild(backToTop);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight / 2) {
+      backToTop.classList.remove('opacity-0', 'pointer-events-none');
+      backToTop.classList.add('opacity-100');
+    } else {
+      backToTop.classList.add('opacity-0', 'pointer-events-none');
+      backToTop.classList.remove('opacity-100');
+    }
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+
+</body>
+</html>

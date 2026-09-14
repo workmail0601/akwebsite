@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Insights & Writing by Alvin Kiiru — thoughts on operations, community, and creative technology.">
+  <meta name="description" content="Insights & Writing by Alvin Kiiru - thoughts on operations, community, and creative technology.">
   <meta name="author" content="Alvin Kiiru">
 
   <!-- Favicons -->
@@ -15,7 +15,7 @@
   <link rel="manifest" href="images/favicons/site.webmanifest" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Alvin Kiiru — Insights">
+  <meta property="og:title" content="Alvin Kiiru - Insights">
   <meta property="og:description" content="Where structure meets creativity. Thoughts on operations, community, and creative technology.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
   <meta property="og:type" content="website">
@@ -136,15 +136,14 @@
     <img src="images/mylogo.png" alt="Alvin Kiiru logo" class="mx-auto w-20 h-20 mb-6 object-contain" />
     <h1 class="text-4xl font-bold text-accent-navy mb-4">Insights</h1>
     <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-      Thoughts on operations, community building, and creative technology. Most of my writing also lives on
-      <a href="https://alvinkiiru.medium.com/" target="_blank" class="text-accent-green hover:underline font-medium">Medium</a>.
+      Thoughts on operations, community building, and creative technology.
     </p>
   </div>
 
   <!-- ===== CATEGORY FILTER ===== -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-wrap gap-2 justify-center" id="filter-bar">
     <!-- Buttons injected by JS -->
-    <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:border-accent-green transition-colors" data-filter="All">All</button>
+    <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:border-accent-green transition-colors" data-filter="All">All Posts</button>
   </div>
 
   <!-- ===== BLOG GRID ===== -->
@@ -161,8 +160,7 @@
     <div id="error-state" class="hidden text-center py-20">
       <p class="text-gray-500 text-lg mb-2">Couldn't load posts right now.</p>
       <p class="text-gray-400 text-sm">
-        Make sure your Google Apps Script is deployed and the URL is set in this page.<br>
-        Check the browser console for details.
+        Please try again shortly.
       </p>
     </div>
 
@@ -226,9 +224,9 @@
 <!-- ===== SCRIPTS ===== -->
 <script>
   // ─────────────────────────────────────────────────────────────
-  // ⚙️  CONFIG — paste your deployed Apps Script Web App URL here
+  // ⚙️  CONFIG - paste your deployed Apps Script Web App URL here
   // ─────────────────────────────────────────────────────────────
-  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwCMnoHI__5n_lBI3t7-YVDm0MFd6zLZP-5nansG-oyBIbPngUjE6z2Bn5Hzm9tBRmneA/exec?sheet=insights';
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxIeaDBF4MjrF7jmp-MLEULLaFyWtp9-4Bemg2DUzNhhkTlcZ61XOoJ6-CwpvLod6HbEg/exec?sheet=insights';
 
   // ─────────────────────────────────────────────────────────────
   // COLOUR MAP for category tag pills
@@ -249,34 +247,46 @@
   }
 
   // ─────────────────────────────────────────────────────────────
+  // Store fetched posts so the detail page can also read them if
+  // it's opened without a fresh network round-trip (best-effort;
+  // post.html always re-fetches from the API too).
+  // ─────────────────────────────────────────────────────────────
+  function cachePosts(posts) {
+    try {
+      sessionStorage.setItem('insights-cache', JSON.stringify(posts));
+    } catch (e) { /* storage unavailable — post.html will just re-fetch */ }
+  }
+
+  // ─────────────────────────────────────────────────────────────
   // Build a single blog card
   // ─────────────────────────────────────────────────────────────
   function buildCard(post) {
-    const { title, summary, date, category, coverImage, link, featured } = post;
+    const { id, title, summary, date, category, coverImage, featured } = post;
     const { bg, text } = getTagColor(category);
     const imgSrc = coverImage || 'images/headshot 3.jpg';
     const featuredBadge = featured === 'TRUE' || featured === true
       ? `<span class="absolute top-3 left-3 bg-accent-navy text-white text-xs font-semibold px-2 py-1 rounded-full">Featured</span>`
       : '';
+    const href = `post.html?id=${encodeURIComponent(id || '')}`;
 
     return `
       <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col fade-in-up">
-        <div class="relative h-48 overflow-hidden">
+        <a href="${href}" class="block relative h-48 overflow-hidden">
           <img src="${imgSrc}" alt="${title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                onerror="this.src='images/headshot 3.jpg'">
           ${featuredBadge}
           <span class="tag-pill absolute bottom-3 right-3 ${bg} ${text}">${category || 'General'}</span>
-        </div>
+        </a>
         <div class="p-6 flex flex-col flex-1">
           <p class="text-xs text-gray-400 mb-2">${date || ''}</p>
-          <h2 class="text-xl font-semibold text-accent-navy mb-2 line-clamp-2">${title}</h2>
+          <h2 class="text-xl font-semibold text-accent-navy mb-2 line-clamp-2">
+            <a href="${href}" class="hover:text-accent-green transition-colors">${title}</a>
+          </h2>
           <p class="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-3">${summary || ''}</p>
-          ${link
-            ? `<a href="${link}" target="_blank" rel="noopener noreferrer"
-                 class="mt-4 inline-block font-medium text-accent-green hover:underline text-sm">
-                 Read More &rarr;
-               </a>`
-            : ''}
+          <a href="${href}"
+             class="mt-4 inline-block font-medium text-accent-green hover:underline text-sm">
+             Read More &rarr;
+          </a>
         </div>
       </article>`;
   }
@@ -341,6 +351,7 @@
       if (data.status !== 'ok') throw new Error(data.message || 'API returned an error');
       // The Apps Script already filters to active=TRUE rows, so use insights as-is.
       allPosts = data.insights || [];
+      cachePosts(allPosts);
 
       document.getElementById('loading-grid').classList.add('hidden');
       buildFilters(allPosts);

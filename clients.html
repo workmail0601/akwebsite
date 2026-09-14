@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Alvin Kiiru — Operations Manager, Community Builder & Creative Technologist. Explore my work, insights, and professional journey.">
+  <meta name="author" content="Alvin Kiiru">
+
+  <!-- Favicons -->
+<link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png" />
+<link rel="icon" type="image/svg+xml" href="images/favicons/favicon.svg" />
+<link rel="shortcut icon" href="images/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="AlvinKiiru" />
+<link rel="manifest" href="images/favicons/site.webmanifest" />
+
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="Alvin Kiiru — Operations, Community & Technology">
+  <meta property="og:description" content="Where structure meets creativity. Explore my work, highlights, and professional impact.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwebsite.com/">
+
+  <title>Alvin Kiiru | Operations, Community & Technology</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ✅ Tailwind CDN FIRST -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- ✅ Tailwind Configuration AFTER -->
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#FFFFFF',
+          'accent-navy': '#0D1B2A',
+          'accent-green': '#4CAF50',
+        },
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+
+
+  <style>
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Make footer stick to bottom */
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1; /* Push footer down */
+    }
+
+    /* Sticky Navigation */
+    .nav-scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Fade-in Animation */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* No-JS Fallback */
+    .no-js .fade-in-up {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Fixed z-index for menu button */
+    #menu-btn {
+      position: relative;
+      z-index: 60;
+    }
+
+    /* --- Header Color Fix --- */
+
+    /* Default header over dark background (hero) */
+    #main-header {
+    color: #FFFFFF;
+    fill: #FFFFFF;
+    }
+
+    /* When scrolled: white background with dark text */
+    .nav-scrolled {
+    background-color: rgba(13, 27, 42, 0.95); /* accent-navy */
+    color: white;
+    fill: white;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    /* Ensure menu icon always inherits current text color */
+    #menu-btn svg {
+    transition: color 0.3s ease, fill 0.3s ease;
+    }
+
+    /* Slightly dim hero background when nav overlays it */
+    .hero-bg {
+    position: relative;
+    z-index: 0;
+    }
+  </style>
+
+</head>
+<body class="bg-primary font-sans text-accent-navy antialiased">
+<header id="main-header" class="fixed top-0 left-0 right-0 z-30 bg-accent-navy text-white transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="index.html" class="font-bold text-2xl">Alvin Kiiru.</a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="font-medium text-accent-green hover:text-white transition-colors">Home</a>
+        <a href="about.html" class="font-medium text-accent-green hover:text-white transition-colors">About</a>
+        <a href="work.html" class="font-medium text-accent-green hover:text-white transition-colors">Work</a>
+        <a href="insights.html" class="font-medium text-accent-green hover:text-white transition-colors">Insights</a>
+        <a href="gallery.html" class="font-medium text-accent-green hover:text-white transition-colors">Gallery</a>
+        <a href="clients.html" class="font-medium text-accent-green hover:text-white transition-colors">Clients</a>
+        <a href="contact.html" class="font-medium text-accent-green hover:text-white transition-colors">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"
+    class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-accent-navy text-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex flex-col p-8 pt-24 space-y-6">
+      <a href="index.html" class="text-xl font-medium hover:text-accent-green transition-colors">Home</a>
+      <a href="about.html" class="text-xl font-medium hover:text-accent-green transition-colors">About</a>
+      <a href="work.html" class="text-xl font-medium hover:text-accent-green transition-colors">Work</a>
+      <a href="insights.html" class="text-xl font-medium hover:text-accent-green transition-colors">Insights</a>
+      <a href="gallery.html" class="text-xl font-medium hover:text-accent-green transition-colors">Gallery</a>
+      <a href="clients.html" class="text-xl font-medium hover:text-accent-green transition-colors">Clients</a>
+      <a href="contact.html" class="text-xl font-medium hover:text-accent-green transition-colors">Contact</a>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden md:hidden"></div>
+</header>
+
+
+<main>
+  <!-- Clients Section -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold text-accent-navy mb-12">Brands I've Worked With</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 items-center justify-center">
+      <!-- Logo 1 -->
+        <div class="flex justify-center">
+        <img src="images/logos/a.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 2 -->
+        <div class="flex justify-center">
+        <img src="images/logos/b.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 3 -->
+        <div class="flex justify-center">
+        <img src="images/logos/c.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 3 -->
+        <div class="flex justify-center">
+        <img src="images/logos/d.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 4 -->
+        <div class="flex justify-center">
+        <img src="images/logos/e.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 5 -->
+        <div class="flex justify-center">
+        <img src="images/logos/f.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 6 -->
+        <div class="flex justify-center">
+        <img src="images/logos/g.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 7 -->
+        <div class="flex justify-center">
+        <img src="images/logos/h.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 8 -->
+        <div class="flex justify-center">
+        <img src="images/logos/i.png" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 9 -->
+        <div class="flex justify-center">
+        <img src="images/logos/j.png" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+      <!-- Logo 10 -->
+        <div class="flex justify-center">
+        <img src="images/logos/k.jpg" alt="Client 1" 
+        class="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-500 ease-in-out" />
+        </div>
+    </div>
+  </div>
+</section>
+</main>
+
+  <!-- Footer -->
+  <footer class="bg-accent-navy text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <a href="index.html" class="font-bold text-3xl text-white">Alvin Kiiru.</a>
+          <p class="mt-4 text-gray-400 text-sm">
+            © 2026 Kiiru.
+          </p>
+          <div class="mt-2 flex space-x-3 text-xs">
+            <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+            <span class="text-gray-600">·</span>
+            <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Use</a>
+          </div>
+          </p>
+        </div>
+
+        <div>
+          <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+            <li><a href="work.html" class="text-gray-300 hover:text-white transition-colors">Work</a></li>
+            <li><a href="index.html#events" class="text-gray-300 hover:text-white transition-colors">Events</a></li>
+            <li><a href="insights.html" class="text-gray-300 hover:text-white transition-colors">Insights</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Connect</h5>
+        <div class="flex flex-wrap gap-5">
+            
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/alvin-k-a64576111/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+            </a>
+
+            <!-- Medium -->
+            <a href="https://alvinkiiru.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium"
+            class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                d="M2.01 6.5c.03-.26-.07-.52-.27-.7l-1.99-2.4v-.36h6.22l4.8 10.54 4.23-10.54h5.93v.36l-1.7 1.62c-.15.11-.22.29-.18.47v11.55c-.04.18.03.36.18.47l1.66 1.62v.36h-8.41v-.36l1.72-1.66c.17-.17.17-.22.17-.47v-9.32l-4.79 11.79h-.65l-5.56-11.79v7.9c-.05.34.07.68.31.93l2.23 2.71v.36h-6.32v-.36l2.23-2.71c.24-.25.35-.59.3-.93v-9.82z" />
+            </svg>
+            </a>
+
+            <!-- Instagram Account 1 -->
+            <a href="https://www.instagram.com/alvin_kiiru/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 1"
+            class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z" />
+                <path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+            </svg>
+            </a>
+
+                        <!-- Instagram Account 2 -->
+            <a href="https://www.instagram.com/illframeyou/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 1"
+            class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z" />
+                <path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+            </svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/workmail0601" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                d="M12 .5c-6.63 0-12 5.37-12 12 0 5.3 3.438 9.8 8.205 11.385.6.112.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.775.419-1.304.762-1.604-2.665-.305-5.466-1.335-5.466-5.932 0-1.31.469-2.382 1.236-3.222-.124-.304-.536-1.527.116-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.019.004 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.649.241 2.872.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.805 5.624-5.476 5.922.43.37.823 1.103.823 2.222v3.293c0 .32.216.694.825.576a12.002 12.002 0 008.202-11.383c0-6.63-5.37-12-12-12z" />
+            </svg>
+            </a>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+<script>
+  const header = document.getElementById('main-header');
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+
+  // ✅ Toggle mobile menu open/close
+  menuBtn.addEventListener('click', () => {
+    const menuIsHidden = mobileMenu.classList.contains('translate-x-full');
+
+    if (menuIsHidden) {
+      // --- OPEN MENU ---
+      mobileMenu.classList.remove('translate-x-full');
+      menuOverlay.classList.remove('hidden');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('overflow-hidden');
+      menuBtn.classList.remove('text-white');
+      menuBtn.classList.add('text-black');
+    } else {
+      // --- CLOSE MENU ---
+      mobileMenu.classList.add('translate-x-full');
+      menuOverlay.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('overflow-hidden');
+      menuBtn.classList.remove('text-black');
+      menuBtn.classList.add('text-white');
+    }
+  });
+
+  // ✅ Close when clicking overlay or a link
+  const closeMenu = () => {
+    mobileMenu.classList.add('translate-x-full');
+    menuOverlay.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
+    menuBtn.classList.remove('text-black');
+    menuBtn.classList.add('text-white');
+  };
+
+  menuOverlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('#mobile-menu a').forEach(link =>
+    link.addEventListener('click', closeMenu)
+  );
+
+  // ✅ Hide header on scroll down, show on scroll up
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll <= 0) {
+      header.classList.remove('-translate-y-full');
+      return;
+    }
+
+    if (currentScroll > lastScroll && !header.classList.contains('-translate-y-full')) {
+      // scrolling down
+      header.classList.add('-translate-y-full');
+    } else if (currentScroll < lastScroll && header.classList.contains('-translate-y-full')) {
+      // scrolling up
+      header.classList.remove('-translate-y-full');
+    }
+    lastScroll = currentScroll;
+  });
+
+  // ✅ Back-to-top button behavior
+  const backToTop = document.createElement('button');
+  backToTop.innerHTML = '↑';
+  backToTop.id = 'back-to-top';
+  backToTop.className =
+    'fixed bottom-6 right-6 bg-accent-green text-white text-xl rounded-full w-12 h-12 flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110';
+  document.body.appendChild(backToTop);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight / 2) {
+      backToTop.classList.remove('opacity-0', 'pointer-events-none');
+      backToTop.classList.add('opacity-100');
+    } else {
+      backToTop.classList.add('opacity-0', 'pointer-events-none');
+      backToTop.classList.remove('opacity-100');
+    }
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

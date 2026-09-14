@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Insights & Writing by Alvin Kiiru — thoughts on operations, community, and creative technology.">
+  <meta name="author" content="Alvin Kiiru">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="images/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="AlvinKiiru" />
+  <link rel="manifest" href="images/favicons/site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alvin Kiiru — Insights">
+  <meta property="og:description" content="Where structure meets creativity. Thoughts on operations, community, and creative technology.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwebsite.com/insights.html">
+
+  <title>Alvin Kiiru | Insights</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FFFFFF',
+            'accent-navy': '#0D1B2A',
+            'accent-green': '#4CAF50',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    main { flex: 1; }
+
+    #main-header { color: #FFFFFF; fill: #FFFFFF; }
+    .nav-scrolled {
+      background-color: rgba(13, 27, 42, 0.95);
+      color: white; fill: white;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    #menu-btn { position: relative; z-index: 60; }
+    #menu-btn svg { transition: color 0.3s ease, fill 0.3s ease; }
+
+    .fade-in-up {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+    .no-js .fade-in-up { opacity: 1 !important; transform: none !important; }
+
+    /* Blog card skeleton loader */
+    .skeleton { animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+
+    /* Tag pill */
+    .tag-pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Category filter active */
+    .filter-btn.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-primary font-sans text-accent-navy antialiased">
+
+<!-- ===== HEADER ===== -->
+<header id="main-header" class="fixed top-0 left-0 right-0 z-30 bg-accent-navy text-white transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="index.html" class="font-bold text-2xl">Alvin Kiiru.</a>
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="font-medium text-accent-green hover:text-white transition-colors">Home</a>
+        <a href="about.html" class="font-medium text-accent-green hover:text-white transition-colors">About</a>
+        <a href="work.html" class="font-medium text-accent-green hover:text-white transition-colors">Work</a>
+        <a href="insights.html" class="font-medium text-white transition-colors">Insights</a>
+        <a href="gallery.html" class="font-medium text-accent-green hover:text-white transition-colors">Gallery</a>
+        <a href="clients.html" class="font-medium text-accent-green hover:text-white transition-colors">Clients</a>
+        <a href="contact.html" class="font-medium text-accent-green hover:text-white transition-colors">Contact</a>
+      </div>
+      <div class="md:hidden">
+        <button id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-accent-navy text-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex flex-col p-8 pt-24 space-y-6">
+      <a href="index.html" class="text-xl font-medium hover:text-accent-green transition-colors">Home</a>
+      <a href="about.html" class="text-xl font-medium hover:text-accent-green transition-colors">About</a>
+      <a href="work.html" class="text-xl font-medium hover:text-accent-green transition-colors">Work</a>
+      <a href="insights.html" class="text-xl font-medium hover:text-accent-green transition-colors">Insights</a>
+      <a href="gallery.html" class="text-xl font-medium hover:text-accent-green transition-colors">Gallery</a>
+      <a href="clients.html" class="text-xl font-medium hover:text-accent-green transition-colors">Clients</a>
+      <a href="contact.html" class="text-xl font-medium hover:text-accent-green transition-colors">Contact</a>
+    </div>
+  </div>
+  <div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden md:hidden"></div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="pt-28 pb-24 bg-gray-50">
+
+  <!-- Page header -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-14">
+    <img src="images/mylogo.png" alt="Alvin Kiiru logo" class="mx-auto w-20 h-20 mb-6 object-contain" />
+    <h1 class="text-4xl font-bold text-accent-navy mb-4">Insights</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+      Thoughts on operations, community building, and creative technology. Most of my writing also lives on
+      <a href="https://alvinkiiru.medium.com/" target="_blank" class="text-accent-green hover:underline font-medium">Medium</a>.
+    </p>
+  </div>
+
+  <!-- ===== CATEGORY FILTER ===== -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-wrap gap-2 justify-center" id="filter-bar">
+    <!-- Buttons injected by JS -->
+    <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:border-accent-green transition-colors" data-filter="All">All</button>
+  </div>
+
+  <!-- ===== BLOG GRID ===== -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Loading skeletons (shown until data arrives) -->
+    <div id="loading-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="skeleton bg-white rounded-2xl shadow-sm h-80"></div>
+      <div class="skeleton bg-white rounded-2xl shadow-sm h-80"></div>
+      <div class="skeleton bg-white rounded-2xl shadow-sm h-80"></div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-state" class="hidden text-center py-20">
+      <p class="text-gray-500 text-lg mb-2">Couldn't load posts right now.</p>
+      <p class="text-gray-400 text-sm">
+        Make sure your Google Apps Script is deployed and the URL is set in this page.<br>
+        Check the browser console for details.
+      </p>
+    </div>
+
+    <!-- Blog cards rendered here -->
+    <div id="posts-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="hidden text-center py-20">
+      <p class="text-gray-400 text-lg">No posts in this category yet.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-accent-navy text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <a href="index.html" class="font-bold text-3xl text-white">Alvin Kiiru.</a>
+        <p class="mt-4 text-gray-400 text-sm">
+          © 2026 Kiiru.
+        </p>
+        <div class="mt-2 flex space-x-3 text-xs">
+          <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+          <span class="text-gray-600">·</span>
+          <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Use</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
+        <ul class="space-y-2">
+          <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+          <li><a href="work.html" class="text-gray-300 hover:text-white transition-colors">Work</a></li>
+          <li><a href="index.html#events" class="text-gray-300 hover:text-white transition-colors">Events</a></li>
+          <li><a href="insights.html" class="text-gray-300 hover:text-white transition-colors">Insights</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Connect</h5>
+        <div class="flex flex-wrap gap-5">
+          <a href="https://www.linkedin.com/in/alvin-k-a64576111/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://alvinkiiru.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 6.5c.03-.26-.07-.52-.27-.7l-1.99-2.4v-.36h6.22l4.8 10.54 4.23-10.54h5.93v.36l-1.7 1.62c-.15.11-.22.29-.18.47v11.55c-.04.18.03.36.18.47l1.66 1.62v.36h-8.41v-.36l1.72-1.66c.17-.17.17-.22.17-.47v-9.32l-4.79 11.79h-.65l-5.56-11.79v7.9c-.05.34.07.68.31.93l2.23 2.71v.36h-6.32v-.36l2.23-2.71c.24-.25.35-.59.3-.93v-9.82z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/alvin_kiiru/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6.01 4.9.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.9s-.01 3.63-.07 4.9c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.9.07s-3.63-.01-4.9-.07c-3.23-.15-4.77-1.69-4.92-4.92C2.21 15.63 2.2 15.25 2.2 12s.01-3.63.07-4.9C2.42 3.87 3.94 2.33 7.17 2.18 8.44 2.12 8.82 2.1 12 2.1m0-2.1C8.73 0 8.31.01 7.03.07 2.95.25.29 2.91.07 7 .01 8.27 0 8.69 0 12s.01 3.73.07 5c.22 4.09 2.88 6.75 6.96 6.93 1.28.06 1.7.07 5 .07s3.73-.01 5-.07c4.09-.18 6.75-2.84 6.93-6.93.06-1.28.07-1.7.07-5s-.01-3.73-.07-5C23.71 2.91 21.05.25 16.97.07 15.69.01 15.27 0 12 0z"/><path d="M12 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zm0 10.2a4 4 0 110-8 4 4 0 010 8zM18.4 4.2a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
+          </a>
+          <a href="https://github.com/workmail0601" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-gray-300 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5c-6.63 0-12 5.37-12 12 0 5.3 3.438 9.8 8.205 11.385.6.112.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.775.419-1.304.762-1.604-2.665-.305-5.466-1.335-5.466-5.932 0-1.31.469-2.382 1.236-3.222-.124-.304-.536-1.527.116-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 013.003-.404c1.019.004 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.649.241 2.872.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.805 5.624-5.476 5.922.43.37.823 1.103.823 2.222v3.293c0 .32.216.694.825.576a12.002 12.002 0 008.202-11.383c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // ⚙️  CONFIG — paste your deployed Apps Script Web App URL here
+  // ─────────────────────────────────────────────────────────────
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwCMnoHI__5n_lBI3t7-YVDm0MFd6zLZP-5nansG-oyBIbPngUjE6z2Bn5Hzm9tBRmneA/exec?sheet=insights';
+
+  // ─────────────────────────────────────────────────────────────
+  // COLOUR MAP for category tag pills
+  // Add/change as needed to match your categories in the Sheet
+  // ─────────────────────────────────────────────────────────────
+  const categoryColors = {
+    'Operations':   { bg: 'bg-blue-100',   text: 'text-blue-700'   },
+    'Community':    { bg: 'bg-purple-100', text: 'text-purple-700' },
+    'Technology':   { bg: 'bg-cyan-100',   text: 'text-cyan-700'   },
+    'Leadership':   { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+    'Personal':     { bg: 'bg-pink-100',   text: 'text-pink-700'   },
+    'Education':    { bg: 'bg-orange-100', text: 'text-orange-700' },
+    'default':      { bg: 'bg-green-100',  text: 'text-green-700'  },
+  };
+
+  function getTagColor(cat) {
+    return categoryColors[cat] || categoryColors['default'];
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Build a single blog card
+  // ─────────────────────────────────────────────────────────────
+  function buildCard(post) {
+    const { title, summary, date, category, coverImage, link, featured } = post;
+    const { bg, text } = getTagColor(category);
+    const imgSrc = coverImage || 'images/headshot 3.jpg';
+    const featuredBadge = featured === 'TRUE' || featured === true
+      ? `<span class="absolute top-3 left-3 bg-accent-navy text-white text-xs font-semibold px-2 py-1 rounded-full">Featured</span>`
+      : '';
+
+    return `
+      <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col fade-in-up">
+        <div class="relative h-48 overflow-hidden">
+          <img src="${imgSrc}" alt="${title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+               onerror="this.src='images/headshot 3.jpg'">
+          ${featuredBadge}
+          <span class="tag-pill absolute bottom-3 right-3 ${bg} ${text}">${category || 'General'}</span>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <p class="text-xs text-gray-400 mb-2">${date || ''}</p>
+          <h2 class="text-xl font-semibold text-accent-navy mb-2 line-clamp-2">${title}</h2>
+          <p class="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-3">${summary || ''}</p>
+          ${link
+            ? `<a href="${link}" target="_blank" rel="noopener noreferrer"
+                 class="mt-4 inline-block font-medium text-accent-green hover:underline text-sm">
+                 Read More &rarr;
+               </a>`
+            : ''}
+        </div>
+      </article>`;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Render filtered posts + animate cards
+  // ─────────────────────────────────────────────────────────────
+  let allPosts = [];
+
+  function renderPosts(filter) {
+    const grid = document.getElementById('posts-grid');
+    const empty = document.getElementById('empty-state');
+    const filtered = filter === 'All' ? allPosts : allPosts.filter(p => p.category === filter);
+
+    if (filtered.length === 0) {
+      grid.classList.add('hidden');
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    grid.innerHTML = filtered.map(buildCard).join('');
+    grid.classList.remove('hidden');
+
+    // Trigger fade-in
+    requestAnimationFrame(() => {
+      grid.querySelectorAll('.fade-in-up').forEach(el => {
+        setTimeout(() => el.classList.add('is-visible'), 50);
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Build category filter buttons
+  // ─────────────────────────────────────────────────────────────
+  function buildFilters(posts) {
+    const bar = document.getElementById('filter-bar');
+    const categories = ['All', ...new Set(posts.map(p => p.category).filter(Boolean))];
+
+    bar.innerHTML = categories.map(cat =>
+      `<button class="filter-btn ${cat === 'All' ? 'active' : ''}
+        px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300
+        hover:border-accent-green transition-colors" data-filter="${cat}">${cat}</button>`
+    ).join('');
+
+    bar.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderPosts(btn.dataset.filter);
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Fetch posts from Apps Script
+  // ─────────────────────────────────────────────────────────────
+  async function fetchPosts() {
+    try {
+      const res = await fetch(SHEET_API_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.status !== 'ok') throw new Error(data.message || 'API returned an error');
+      // The Apps Script already filters to active=TRUE rows, so use insights as-is.
+      allPosts = data.insights || [];
+
+      document.getElementById('loading-grid').classList.add('hidden');
+      buildFilters(allPosts);
+      renderPosts('All');
+    } catch (err) {
+      console.error('Insights fetch error:', err);
+      document.getElementById('loading-grid').classList.add('hidden');
+      document.getElementById('error-state').classList.remove('hidden');
+    }
+  }
+
+  fetchPosts();
+
+  // ─────────────────────────────────────────────────────────────
+  // NAV / SCROLL / MENU (same as all other pages)
+  // ─────────────────────────────────────────────────────────────
+  const header = document.getElementById('main-header');
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+
+  menuBtn.addEventListener('click', () => {
+    const hidden = mobileMenu.classList.contains('translate-x-full');
+    if (hidden) {
+      mobileMenu.classList.remove('translate-x-full');
+      menuOverlay.classList.remove('hidden');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('overflow-hidden');
+    } else {
+      mobileMenu.classList.add('translate-x-full');
+      menuOverlay.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('overflow-hidden');
+    }
+  });
+
+  const closeMenu = () => {
+    mobileMenu.classList.add('translate-x-full');
+    menuOverlay.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
+  };
+  menuOverlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('#mobile-menu a').forEach(l => l.addEventListener('click', closeMenu));
+
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const cur = window.pageYOffset;
+    if (cur <= 0) { header.classList.remove('-translate-y-full'); return; }
+    if (cur > lastScroll) header.classList.add('-translate-y-full');
+    else header.classList.remove('-translate-y-full');
+    lastScroll = cur;
+  });
+
+  const backToTop = document.createElement('button');
+  backToTop.innerHTML = '↑';
+  backToTop.className = 'fixed bottom-6 right-6 bg-accent-green text-white text-xl rounded-full w-12 h-12 flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110';
+  document.body.appendChild(backToTop);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight / 2) {
+      backToTop.classList.remove('opacity-0', 'pointer-events-none');
+      backToTop.classList.add('opacity-100');
+    } else {
+      backToTop.classList.add('opacity-0', 'pointer-events-none');
+      backToTop.classList.remove('opacity-100');
+    }
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+
+</body>
+</html>
